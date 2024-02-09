@@ -51,23 +51,37 @@ public class Face {
 
         return Integer.parseInt(s);
 
-
     }
 
     //empty for now
     public void onDraw(Canvas canvas) {
-
+        //does nothing
     }
 
-    //
-    //
-    //
+    ////////////////////////////////
     // potential onDraw helpers
-    //
-    //
-    //
+    ////////////////////////////////
 
-    //helper for color converters - re-adds 0 at beginning if it was lost during int conversion
+    //decodes blue value of color int
+    public int decodeBlue(int numberString) {
+        String s = addZero(numberString);
+        return parseInt(s.substring(6));
+    }
+
+    //decodes green value of color int
+    public int decodeGreen(int numberString) {
+        String s = addZero(numberString);
+        return parseInt(s.substring(3,6));
+    }
+
+    //decodes red value of color int
+    public int fetchRed(int numberString) {
+        String s = addZero(numberString);
+        return parseInt(s.substring(0,3));
+    }
+
+    //helper for color decoders - re-adds 0 at beginning if it was lost during conversion
+    //from a string - returns base string otherwise
     public String addZero(int num) {
         String s = "" + num;
         if (num < 100000000) {
@@ -76,21 +90,4 @@ public class Face {
         return s;
     }
 
-    //Fetches blue value of color int
-    public int convertBlue(int numberString) {
-        String s = addZero(numberString);
-        return parseInt(s.substring(6));
-    }
-
-    //Fetches green value of color int
-    public int convertGreen(int numberString) {
-        String s = addZero(numberString);
-        return parseInt(s.substring(3,6));
-    }
-
-    //fetches red value of color int
-    public int FetchRed(int numberString) {
-        String s = addZero(numberString);
-        return parseInt(s.substring(0,3));
-    }
 }

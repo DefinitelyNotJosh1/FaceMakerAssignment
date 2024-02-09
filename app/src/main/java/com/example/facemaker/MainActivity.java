@@ -8,9 +8,6 @@ package com.example.facemaker;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
-import android.util.Log;
-import android.widget.ArrayAdapter;
-import android.widget.Spinner;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -19,6 +16,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //not much reason for this, used for debugging
         Face f = new Face();
     }
 }
