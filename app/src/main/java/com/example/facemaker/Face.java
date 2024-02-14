@@ -8,6 +8,8 @@ package com.example.facemaker;
 import static java.lang.Integer.parseInt;
 
 import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
 
 import java.util.Random;
 
@@ -26,68 +28,64 @@ public class Face {
 
     //Randomizes instance variables
     public void randomize() {
+        Random gen = new Random();
+
         skinColor = randomColor();
         eyeColor = randomColor();
         hairColor = randomColor();
-        hairStyle = randomColor();
+        //randomize hairstyle to value between 0 and 2;
+        hairStyle = gen.nextInt(3);
     }
 
     //Helper method to get a random int that contains 3 0-255 values
     public int randomColor() {
-        Random gen = new Random();
-        String s = "";
-        for (int i = 0; i < 3; i++) {
-            int j = gen.nextInt(256);
-            if (j < 10) {
-                s = s + "00" + j;
-            }
-            else if (j < 100) {
-                s = s + "0" + j;
-            }
-            else {
-                s = s + j;
-            }
-        }
+        Color randColor = new Color();
+        randColor.rgb( (int) (Math.random() * 255),
+                       (int) (Math.random() * 255),
+                       (int) (Math.random() * 255));
 
-        return Integer.parseInt(s);
-
+        return randColor.hashCode();
     }
 
     //empty for now
     public void onDraw(Canvas canvas) {
-        //does nothing
+        //TODO: empty for now
     }
 
-    ////////////////////////////////
+    ///////////////////////////////////////////////////////////
+    //
     // potential onDraw helpers
-    ////////////////////////////////
+    //
+    ///////////////////////////////////////////////////////////
 
-    //decodes blue value of color int
-    public int decodeBlue(int numberString) {
-        String s = addZero(numberString);
-        return parseInt(s.substring(6));
+    //draws general face
+    public void drawFace(Canvas canvas) {
+        //TODO: empty for now
     }
 
-    //decodes green value of color int
-    public int decodeGreen(int numberString) {
-        String s = addZero(numberString);
-        return parseInt(s.substring(3,6));
+    //draws hairstyle 0
+    public void hairStyle0(Canvas canvas) {
+        //TODO: empty for now
     }
 
-    //decodes red value of color int
-    public int fetchRed(int numberString) {
-        String s = addZero(numberString);
-        return parseInt(s.substring(0,3));
+    //draws hairstyle 1
+    public void hairStyle1(Canvas canvas) {
+        //TODO: empty for now
     }
 
-    //helper for color decoders - re-adds 0 at beginning if it was lost during conversion
-    //from a string - returns base string otherwise
-    public String addZero(int num) {
-        String s = "" + num;
-        if (num < 100000000) {
-            s = "0" + s;
-        }
-        return s;
+    //draws hairstyle 2
+    public void hairStyle2(Canvas canvas) {
+        //TODO: empty for now
+    }
+
+    //draws eyes
+    public void drawEyes(Canvas canvas) {
+        //TODO: empty for now
+    }
+
+    //draws nose
+    public void drawNose(Canvas canvas) {
+        //TODO: empty for now
     }
 
 }
