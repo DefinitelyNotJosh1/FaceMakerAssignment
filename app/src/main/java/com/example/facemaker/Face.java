@@ -40,9 +40,9 @@ public class Face {
     //Helper method to get a random int that contains 3 0-255 values
     public int randomColor() {
         Color randColor = new Color();
-        randColor.rgb( (int) (Math.random() * 255),
-                       (int) (Math.random() * 255),
-                       (int) (Math.random() * 255));
+        randColor.rgb( (int) (Math.random() * 256),
+                       (int) (Math.random() * 256),
+                       (int) (Math.random() * 256));
 
         return randColor.hashCode();
     }
