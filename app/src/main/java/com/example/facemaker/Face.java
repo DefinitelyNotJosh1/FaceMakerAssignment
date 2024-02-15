@@ -21,6 +21,42 @@ public class Face {
     private int hairColor;
     private int hairStyle;
 
+    //instance setters
+    public void setSkinColor(int skinColor) {
+        this.skinColor = skinColor;
+    }
+
+    public void setEyeColor(int eyeColor) {
+        this.eyeColor = eyeColor;
+    }
+
+    public void setHairColor(int hairColor) {
+        this.hairColor = hairColor;
+    }
+
+    public void setHairStyle(int hairStyle) {
+        this.hairStyle = hairStyle;
+    }
+
+    //instance getters
+    public int getSkinColor() {
+        return skinColor;
+    }
+
+    public int getEyeColor() {
+        return eyeColor;
+    }
+
+    public int getHairColor() {
+        return hairColor;
+    }
+
+    public int getHairStyle() {
+        return hairStyle;
+    }
+
+
+
     //Face constructor, automatically calls randomize method
     public Face() {
         randomize();
@@ -37,19 +73,17 @@ public class Face {
         hairStyle = gen.nextInt(3);
     }
 
-    //Helper method to get a random int that contains 3 0-255 values
+    //Helper method to generate a random color
     public int randomColor() {
-        Color randColor = new Color();
-        randColor.rgb( (int) (Math.random() * 256),
+        return Color.argb( 255, (int) (Math.random() * 256),
                        (int) (Math.random() * 256),
                        (int) (Math.random() * 256));
-
-        return randColor.hashCode();
     }
 
     //empty for now
     public void onDraw(Canvas canvas) {
         //TODO: empty for now
+
     }
 
     ///////////////////////////////////////////////////////////
@@ -57,6 +91,12 @@ public class Face {
     // potential onDraw helpers
     //
     ///////////////////////////////////////////////////////////
+
+    //sets color from seekbars
+    public int colorSetter(FaceController faceController, String color, int val) {
+        Color skin = new Color();
+        return 0;
+    }
 
     //draws general face
     public void drawFace(Canvas canvas) {
