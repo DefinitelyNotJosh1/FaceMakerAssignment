@@ -3,25 +3,34 @@ package com.example.facemaker;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.view.SurfaceView;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.RadioGroup;
 import android.widget.SeekBar;
+import android.widget.Spinner;
 
-public class FaceController implements SeekBar.OnSeekBarChangeListener, RadioGroup.OnCheckedChangeListener {
+import com.google.android.material.textview.MaterialTextView;
+
+public class FaceController implements SeekBar.OnSeekBarChangeListener, RadioGroup.OnCheckedChangeListener,
+        View.OnClickListener, AdapterView.OnItemSelectedListener {
     private Face face;
     private MainActivity mainActivity;
     private int redVal;
     private int greenVal;
     private int blueVal;
     private int buttonID;
-    private SurfaceView sv;
-    private int hairRadio = 2131296612;
-    private int eyesRadio = 2131296611;
-    private int skinRadio = 2131296613;
+    private final int hairRadio = 2131296612;
+    private final int eyesRadio = 2131296611;
+    private final int skinRadio = 2131296613;
+    private final String afroSpinner = "Afro";
+    private final String baldSpinner = "Bald";
+    private final String longSpinner = "Long";
+
 
     public FaceController(Face initFace, MainActivity initMainActivity) {
         face = initFace;
         mainActivity = initMainActivity;
-        sv = mainActivity.findViewById(R.id.surfaceView);
     }
     @Override
     public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
@@ -49,12 +58,9 @@ public class FaceController implements SeekBar.OnSeekBarChangeListener, RadioGro
         else if (buttonID == skinRadio) {
             face.setSkinColor(intColor);
         }
-        else {
-            sv.setBackgroundColor(intColor);
-        }
 
 
-        sv.invalidate();
+        face.invalidate();
     }
 
     @Override
@@ -85,7 +91,7 @@ public class FaceController implements SeekBar.OnSeekBarChangeListener, RadioGro
         }
 
 
-        sv.invalidate();
+        face.invalidate();
     }
 
     //seekBar setter helper
@@ -101,6 +107,60 @@ public class FaceController implements SeekBar.OnSeekBarChangeListener, RadioGro
         //set blue
         SeekBar seekBlue = mainActivity.findViewById(R.id.seekBarBlue);
         seekBlue.setProgress(Color.blue(color));
+
+        face.invalidate();
     }
 
+    //sets all seekbars for all components
+    public void fullSeekBarSetter() {
+        seekBarSetter(face.getHairColor());
+        seekBarSetter(face.getEyeColor());
+        seekBarSetter(face.getSkinColor());
+    }
+
+
+    //randomizer button
+    @Override
+    public void onClick(View v) {
+        face.randomize();
+        RadioGroup radioGroup = mainActivity.findViewById(R.id.radioGroup);
+        radioGroup.check(face.getRadioChecked());
+        spinnerSetter();
+
+        face.invalidate();
+    }
+
+    //helper for randomize button, sets spinner to the random hairstyle that was selected
+    public void spinnerSetter() {
+        Spinner hairSpinner = mainActivity.findViewById(R.id.spinnerHairStyle);
+        hairSpinner.setSelection(face.getHairStyle());
+    }
+
+
+    //override method for spinner
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        //convert view to materialTextView to get text from it
+        MaterialTextView hairTextView = (MaterialTextView) view;
+        String hairType = hairTextView.getText() + "";
+
+        //find out which hairstyle was selected
+        if (hairType.equals(afroSpinner)) {
+            face.setHairStyle(0);
+        }
+        else if (hairType.equals(baldSpinner)) {
+            face.setHairStyle(1);
+        }
+        else if (hairType.equals(longSpinner)) {
+            face.setHairStyle(2);
+        }
+
+        face.invalidate();
+    }
+
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+        //does nothing
+    }
 }

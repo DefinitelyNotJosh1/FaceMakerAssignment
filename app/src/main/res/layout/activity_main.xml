@@ -13,8 +13,8 @@
         android:orientation="horizontal"
         android:layout_weight="1">
 
-        <SurfaceView
-            android:id="@+id/surfaceView"
+        <com.example.facemaker.Face
+            android:id="@+id/FaceView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1" />
@@ -88,7 +88,7 @@
             <RadioGroup
                 android:id="@+id/radioGroup"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" >
+                android:layout_height="wrap_content">
 
                 <RadioButton
                     android:id="@+id/radioButtonHair"
@@ -134,8 +134,6 @@
                 android:layout_margin="20sp"
                 android:entries="@array/hairstyles"
                 android:spinnerMode="dropdown"
-
-
                 />
 
         </LinearLayout>
