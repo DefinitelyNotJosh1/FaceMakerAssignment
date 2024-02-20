@@ -32,6 +32,8 @@ public class FaceController implements SeekBar.OnSeekBarChangeListener, RadioGro
         face = initFace;
         mainActivity = initMainActivity;
     }
+
+    //Seekbar override, detects which seekbar was changed and sets the correct value
     @Override
     public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
 
