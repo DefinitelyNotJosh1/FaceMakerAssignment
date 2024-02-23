@@ -1,3 +1,8 @@
+//////////////////////////////////
+// @author Joshua Krasnogorov
+// @version 2/23/2024
+//////////////////////////////////
+
 package com.example.facemaker;
 
 import android.graphics.Color;
@@ -6,9 +11,11 @@ import android.view.SurfaceView;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.SeekBar;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.google.android.material.textview.MaterialTextView;
 
@@ -48,6 +55,7 @@ public class FaceController implements SeekBar.OnSeekBarChangeListener, RadioGro
 
         int intColor = Color.argb(255,redVal,greenVal,blueVal);
 
+
         //assign color to property identified by radio buttons
         if (buttonID == hairRadio) {
             face.setHairColor(intColor);
@@ -58,6 +66,9 @@ public class FaceController implements SeekBar.OnSeekBarChangeListener, RadioGro
         else if (buttonID == skinRadio) {
             face.setSkinColor(intColor);
         }
+
+        //set the RGB values
+        numberSetter(intColor);
 
 
         face.invalidate();
@@ -82,12 +93,15 @@ public class FaceController implements SeekBar.OnSeekBarChangeListener, RadioGro
         //set the seekbar values to correspond with the radio buttons
         if (checkedId == hairRadio) {
             seekBarSetter(face.getHairColor());
+            numberSetter(face.getHairColor());
         }
         else if (checkedId == eyesRadio) {
             seekBarSetter(face.getEyeColor());
+            numberSetter(face.getEyeColor());
         }
         else if (checkedId == skinRadio) {
             seekBarSetter(face.getSkinColor());
+            numberSetter(face.getSkinColor());
         }
 
 
@@ -111,20 +125,33 @@ public class FaceController implements SeekBar.OnSeekBarChangeListener, RadioGro
         face.invalidate();
     }
 
-    //sets all seekbars for all components
-    public void fullSeekBarSetter() {
-        seekBarSetter(face.getHairColor());
-        seekBarSetter(face.getEyeColor());
-        seekBarSetter(face.getSkinColor());
-    }
+    //set proper textViews to correspond with a given color - a helper
+    public void numberSetter(int color) {
+        //set red
+        TextView redNum = mainActivity.findViewById(R.id.textViewRedNum);
+        redNum.setText("" + Color.red(color));
 
+        //set green
+        TextView greenNum = mainActivity.findViewById(R.id.textViewGreenNum);
+        greenNum.setText("" + Color.green(color));
+
+        //set blue
+        TextView blueNum = mainActivity.findViewById(R.id.textViewBlueNum);
+        blueNum.setText("" + Color.blue(color));
+
+        face.invalidate();
+    }
 
     //randomizer button
     @Override
     public void onClick(View v) {
+        //randomize face
         face.randomize();
         RadioGroup radioGroup = mainActivity.findViewById(R.id.radioGroup);
+        //randomly check a group
         radioGroup.check(face.getRadioChecked());
+
+        //set Spinner to correspond with randomly assigned value from randomize()
         spinnerSetter();
 
         face.invalidate();
@@ -137,11 +164,13 @@ public class FaceController implements SeekBar.OnSeekBarChangeListener, RadioGro
     }
 
 
-    //override method for spinner
+    // override method for spinner, used
+    // https://stackoverflow.com/questions/20151414/how-can-i-use-onitemselected-in-android
+    // as a reference
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         //convert view to materialTextView to get text from it
-        MaterialTextView hairTextView = (MaterialTextView) view;
+        MaterialTextView hairTextView = (MaterialTextView)view;
         String hairType = hairTextView.getText() + "";
 
         //find out which hairstyle was selected
